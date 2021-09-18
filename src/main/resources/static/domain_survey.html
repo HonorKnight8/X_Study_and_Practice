@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js" ></script>
+
+    <title>domainSurvey</title>
+</head>
+<body>
+<h3>domainSurvey</h3>
+
+<a href="get_data">get_data</a><br/>
+<a href="/domain_survey/get_data">/domain_survey/get_data</a>
+
+<h3>功能说明</h3>
+练习：爬取网页数据、缓存至本地、使用eChart进行数据可视化展示
+<hr/>
+<div id="data_chart">
+
+
+</div>
+
+
+
+</body>
+<script>
+    /**
+     * 页面加载时执行
+     */
+    // $(document).ready(function (){
+    //     console.log("$(document).ready() 方法");
+    //     test();
+    // });
+
+    let jsDataMap = new Map();
+
+    window.onload=function (){
+        console.log("window.onload 方法");
+        test();
+        getData();
+    };
+    function test() {
+        console.log("test方法");
+
+    };
+    function getData() {
+        console.log("getData方法");
+        $.ajax({
+            url: "/domain_survey/get_data",
+            async: true,
+            data: {
+                "what": "nothing"
+            },
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                console.log("发送成功");
+                // console.log(data);
+                if (data.flag) {
+                    console.log("1");
+
+                    dataToJSDataMap(data);
+
+
+                    // $("#updateTime").css("color", "royalblue").html(data.returnUpdateTime);
+                } else {
+                    console.log("2");
+                    // $("#returnMsg").css("color", "red").html(data.returnMsg);
+                }
+            },
+            error: function () {
+                console.log("执行失败");
+            },
+        })
+    };
+    function dataToJSDataMap(data) {
+        console.log("dataToJSDataMap方法");
+        let returnJson = eval(data);
+        let returnResults = returnJson['dataMap'];
+
+        for (let key in returnResults) {
+
+            console.log(key);
+            var arrays = returnResults[key];
+            arrays.shift()
+            for (let i = 0; i < 10; i++) {
+                console.log(arrays.shift());
+            }
+
+        }
+    };
+</script>
+</html>

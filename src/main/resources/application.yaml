@@ -1,0 +1,15 @@
+server:
+  port: 8081
+#spring:
+#  servlet:
+#    multipart:
+#      enabled: true
+#      location: D:\test\0912
+  #     /data/apps/temp
+
+spring:
+  mvc:
+    # 页面逻辑视图
+    view:
+      prefix: /
+      suffix: .html

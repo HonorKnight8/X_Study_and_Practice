@@ -2,50 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/entire.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <!--    <script src="/js/entire.js"></script>-->
 
     <title>domainSurvey</title>
 </head>
-<body>
-<h3>domainSurvey</h3>
+<body style="height: 100%; margin: 0">
+<!-- 页面顶栏 -->
+<div id="topbar">
+    <a href="/" title="HelloWorld.Monster"><i class='far fa-edit fa-fw'></i>HelloWorld</a>
+    <a href="/posts/" title="全部文章"> 文章 </a>
+    <a href="/tags/" title="文章标签"> 标签 </a>
+    <a href="/categories/" title="文章分类"> 分类 </a>
+    <a href="/labs/" title="学习与实践"><i class='fas fa-flask'></i> Labs </a>
+    <a href="/tools/" title="工具与玩具"><i class='fas fa-dice-d20'></i> Tools </a>
+    <a href="/about/" title="本站日记"> About </a>
+</div>
+<div id="main">
 
-<a href="get_data">get_data</a><br/>
-<a href="/domain_survey/get_data">/domain_survey/get_data</a>
+    练习：爬取网页数据、缓存至本地、使用eChart进行数据可视化展示
+</div>
 
-<h3>功能说明</h3>
-练习：爬取网页数据、缓存至本地、使用eChart进行数据可视化展示
-<hr/>
-<div id="data_chart">
+<!--<div id="data_chart">-->
+<div id="container" style="height: 600px"></div>
+<script type="text/javascript">
+
+
+
+
+</script>
 
 
 </div>
 
-
-
 </body>
+
 <script>
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+
+    var option;
+
+    option = {
+        title: {
+            text: 'domainSurvey'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: []
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: []
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: []
+    };
+
     /**
      * 页面加载时执行
      */
-    // $(document).ready(function (){
-    //     console.log("$(document).ready() 方法");
-    //     test();
-    // });
-
-    let jsDataMap = new Map();
-
-    window.onload=function (){
+    window.onload = function () {
         console.log("window.onload 方法");
-        test();
         getData();
     };
-    function test() {
-        console.log("test方法");
 
-    };
     function getData() {
         console.log("getData方法");
         $.ajax({
@@ -61,14 +102,19 @@
                 // console.log(data);
                 if (data.flag) {
                     console.log("1");
-
+                    // console.log(data);
+                    // console.log(option.series);
                     dataToJSDataMap(data);
 
-
-                    // $("#updateTime").css("color", "royalblue").html(data.returnUpdateTime);
+                    console.log(option.xAxis.data);
+                    console.log(option.legend.data);
+                    console.log(option.series);
+                    // 绘图
+                    if (option && typeof option === 'object') {
+                        myChart.setOption(option);
+                    };
                 } else {
                     console.log("2");
-                    // $("#returnMsg").css("color", "red").html(data.returnMsg);
                 }
             },
             error: function () {
@@ -76,21 +122,37 @@
             },
         })
     };
+
     function dataToJSDataMap(data) {
         console.log("dataToJSDataMap方法");
         let returnJson = eval(data);
-        let returnResults = returnJson['dataMap'];
+        // let returnResults = returnJson['dataMap'];
+        option.xAxis.data = returnJson['xAxis'];
+        option.legend.data = returnJson['legend'];
+        // console.log(option.xAxis.data);
+        // console.log(option.legend.data);
 
-        for (let key in returnResults) {
-
-            console.log(key);
-            var arrays = returnResults[key];
-            arrays.shift()
-            for (let i = 0; i < 10; i++) {
-                console.log(arrays.shift());
-            }
-
+        let dataMap = returnJson['data'];
+        option.series = new Array();
+        for (let key in dataMap) {
+            // console.log(key);
+            let map = new Map;
+            map.set('name', key);
+            map.set('type', 'line');
+            map.set('stack', '总量');
+            // if(key == 'com'){
+            //     map.set('stack', 'com');
+            // }else {
+            //     map.set('stack', 'others');
+            // }
+            // com 域名单独一组，其他一组（堆叠），否则绘制出来的图形不好看
+            map.set('data', dataMap[key]);
+            option.series.push(Object.fromEntries(map.entries())); // map转object再压进list，否则eChart不认
         }
+        // console.log(option.series);
+        // console.log(option.series.shift());
     };
 </script>
+
+
 </html>

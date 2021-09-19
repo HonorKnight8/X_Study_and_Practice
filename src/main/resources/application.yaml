@@ -1,11 +1,5 @@
 server:
   port: 8081
-#spring:
-#  servlet:
-#    multipart:
-#      enabled: true
-#      location: D:\test\0912
-  #     /data/apps/temp
 
 spring:
   mvc:
@@ -13,3 +7,4 @@ spring:
     view:
       prefix: /
       suffix: .html
+

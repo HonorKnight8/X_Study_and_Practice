@@ -17,7 +17,7 @@ public class DataFileDao {
 
     public static TreeMap<String, Object> getData(){
 
-        TreeMap<String, Object> dataMap = new TreeMap<>();
+        TreeMap<String, Object> dataMap;
 
         if (!dataFile.exists()){
             // 文件不存在，爬取 12 个月数据
@@ -31,7 +31,7 @@ public class DataFileDao {
         dataMap = readJsonFileToMap();
 
         String lastUpdatedMonth = dataMap.lastKey();
-        int outdatedMonths = Integer.valueOf(dateTimeFormatter.format(now)) - Integer.valueOf(lastUpdatedMonth);
+        int outdatedMonths = Integer.parseInt(dateTimeFormatter.format(now)) - Integer.parseInt(lastUpdatedMonth);
         if (outdatedMonths>1){
             // 判断最后更新月份，爬取缺失的月份数据
             dataMap.putAll(downloadData(outdatedMonths-1));

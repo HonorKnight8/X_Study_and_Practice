@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import monster.helloworld.x_study_and_practice.domain_survey.Constant;
 import monster.helloworld.x_study_and_practice.domain_survey.DataFileBean;
 import monster.helloworld.x_study_and_practice.domain_survey.DataFileDao;
+import monster.helloworld.x_study_and_practice.domain_survey.DomainSurveyService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,6 +28,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class test {
+
+    @Test
+    public void test7()  {
+        LinkedHashMap<String, Object> treeMap = DomainSurveyService.clipData(DataFileDao.getData());
+    }
+
 
     @Test
     public void test6() throws JsonProcessingException {

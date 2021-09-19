@@ -45,12 +45,13 @@ public class DomainSurveyController {
         // 接收前端提交的数据
         System.out.println("___接收到客户端发送过来的信息：" + httpServletRequest.getParameter("what"));
 
-        Map<String, Object> map = new TreeMap(); // 用于存放返回信息
         // 执行获取数据的业务逻辑
-        TreeMap dataMap = DataFileDao.getData();
+        TreeMap treeMap = DataFileDao.getData();
 
-        map.put("flag",true);
-        map.put("dataMap",dataMap);
+        // 将读取到的map进行修剪后
+        Map<String, Object> map = DomainSurveyService.clipData(treeMap);
+        map.put("flag",true); // 添加 flag = true 元素
+
 
         // 把 map 转成 json ，最后返回给前端
         ObjectMapper om = new ObjectMapper();

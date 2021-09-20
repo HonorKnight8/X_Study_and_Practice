@@ -11,17 +11,33 @@
     <groupId>monster.helloworld</groupId>
     <artifactId>X_Study_and_Practice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+<!--    <packaging>war</packaging>-->
     <name>X_Study_and_Practice</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
+<!--        <tomcat.version>7.0.76</tomcat.version>-->
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>javax.servlet</groupId>-->
+<!--            <artifactId>javax.servlet-api</artifactId>-->
+<!--            <version>3.1.0</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -32,7 +48,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

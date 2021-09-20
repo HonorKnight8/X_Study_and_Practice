@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W7NHWX0HRN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W7NHWX0HRN');
+    </script>
+
     <link rel="stylesheet" href="/css/entire.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -14,28 +23,20 @@
 <body style="height: 100%; margin: 0">
 <!-- 页面顶栏 -->
 <div id="topbar">
-    <a href="/" title="HelloWorld.Monster"><i class='far fa-edit fa-fw'></i>HelloWorld</a>
-    <a href="/posts/" title="全部文章"> 文章 </a>
-    <a href="/tags/" title="文章标签"> 标签 </a>
-    <a href="/categories/" title="文章分类"> 分类 </a>
-    <a href="/labs/" title="学习与实践"><i class='fas fa-flask'></i> Labs </a>
-    <a href="/tools/" title="工具与玩具"><i class='fas fa-dice-d20'></i> Tools </a>
-    <a href="/about/" title="本站日记"> About </a>
+    <a href="http://helloworld.monster/" title="HelloWorld.Monster"><i class='far fa-edit fa-fw'></i>HelloWorld</a>
+    <a href="http://helloworld.monster/posts/" title="全部文章"> 文章 </a>
+    <a href="http://helloworld.monster/tags/" title="文章标签"> 标签 </a>
+    <a href="http://helloworld.monster/categories/" title="文章分类"> 分类 </a>
+    <a href="http://helloworld.monster/labs/" title="学习与实践"><i class='fas fa-flask'></i> Labs </a>
+    <a href="http://helloworld.monster/tools/" title="工具与玩具"><i class='fas fa-dice-d20'></i> Tools </a>
+    <a href="http://helloworld.monster/about/" title="本站日记"> About </a>
 </div>
 <div id="main">
-
-    练习：爬取网页数据、缓存至本地、使用eChart进行数据可视化展示
+&emsp;&emsp;练习：爬取网页数据、缓存至本地、使用 EChart 进行数据可视化展示
 </div>
 
 <!--<div id="data_chart">-->
-<div id="container" style="height: 600px"></div>
-<script type="text/javascript">
-
-
-
-
-</script>
-
+<div id="container" style="text-align: center; height: 600px"></div>
 
 </div>
 
@@ -78,6 +79,7 @@
         },
         series: []
     };
+    // 以上是 eChart 的变量
 
     /**
      * 页面加载时执行
@@ -145,7 +147,7 @@
             // }else {
             //     map.set('stack', 'others');
             // }
-            // com 域名单独一组，其他一组（堆叠），否则绘制出来的图形不好看
+            // 也可以分两组进行堆叠：com 域名单独一组，其他一组（堆叠），否则绘制出来的图形不好看
             map.set('data', dataMap[key]);
             option.series.push(Object.fromEntries(map.entries())); // map转object再压进list，否则eChart不认
         }

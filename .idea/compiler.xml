@@ -9,7 +9,7 @@
         <module name="X_Study_and_Practice" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="X_Study_and_Practice" target="1.8" />
     </bytecodeTargetLevel>
   </component>
